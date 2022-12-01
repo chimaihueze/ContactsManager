@@ -12,6 +12,18 @@ public class Contact {
     
     // constructor
     public Contact(String name, String phoneNumber, String birthDate) throws ParseException {
+        if (name == null || name.isBlank()) {
+            throw new IllegalArgumentException("name cannot be null/blank");
+        }
+
+        if (phoneNumber.length() < 5) {
+            throw new IllegalArgumentException("phoneNumber cannot be less than 5");
+        }
+
+        if (phoneNumber == null || phoneNumber.isBlank()) {
+            throw new IllegalArgumentException("phoneNumber cannot be null/blank");
+        }
+
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.birthDate = birthDate;
@@ -45,6 +57,9 @@ public class Contact {
 
     // setters
     public void setName(String name) {
+        if (name == null || name.isBlank()) {
+            throw new IllegalArgumentException("can not set name to null/blank"); 
+        }
         this.name = name;
     }
 
@@ -58,6 +73,13 @@ public class Contact {
     }
 
     public void setPhoneNumber(String phoneNumber) {
+        if (phoneNumber == null || phoneNumber.isBlank()) {
+            throw new IllegalArgumentException("phoneNumber can not be set to null/blank");
+        }
+
+        if (phoneNumber.length() < 5) {
+            throw new IllegalArgumentException("phoneNumber cannot be set to less than 5");
+        }
         this.phoneNumber = phoneNumber;
     }
     
