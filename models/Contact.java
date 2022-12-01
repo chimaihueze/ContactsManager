@@ -70,4 +70,15 @@ public class Contact {
         return (int) (TimeUnit.MILLISECONDS.toDays(diff) / 365);
     }
 
+    // toString
+    public String toString() {
+        return "Name: " + getName() + "\n" +
+
+        "Phone number: " + getPhoneNumber() + "\n" +
+        
+        "Birth Date: " + getBirthDate() + "\n" +
+        
+        "Age: " + getAge() + " year old\n";
+    }
+
 }
