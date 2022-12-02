@@ -1,12 +1,23 @@
 import models.ContactManager;
 import models.Contact;
 
+import java.text.ParseException;
+
 public class Main {
     public static void main(String[] args) {
         
-      
-        
+      try {
+          Contact contact = new Contact("Chima", "+2348030000000", "05-17-1900");
+          System.out.println(contact);
+      } catch (ParseException e) {
+          System.out.println(e.getMessage());;
+      } finally {
+          System.out.println("Process complete");
+      }
+
     }
+
+    
 
     /**
      * Name: manageContacts
