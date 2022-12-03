@@ -1,23 +1,25 @@
 import models.ContactManager;
 import models.Contact;
-
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.text.ParseException;
+import java.util.Scanner;
 
 public class Main {
+        // contactManager object
+    static ContactManager manager = new ContactManager();
     public static void main(String[] args) {
-        
+
       try {
-          Contact contact = new Contact("Chima", "+2348030000000", "05-17-1900");
-          System.out.println(contact);
-      } catch (ParseException e) {
-          System.out.println(e.getMessage());;
-      } finally {
-          System.out.println("Process complete");
+        loadContacts("contacts.txt");
+        System.out.println("CONTACTS LOADED\n\n");
+        System.out.println(manager);
+        manageContacts();
+
+      } catch (FileNotFoundException e) {
+        System.out.println(e.getMessage());
       }
-
     }
-
-    
 
     /**
      * Name: manageContacts
@@ -31,7 +33,46 @@ public class Main {
      *   • 3. close Scanner.
      */
 
+     public static void manageContacts() {
+      Scanner scan = new Scanner(System.in);
 
+      while (true) {
+        System.out.println("Would you like to \n\ta) add another contact\n\tb) remove a contact \n\tc) exit");
+        String response = scan.nextLine();
+
+
+        if (response.equals("a")) {
+          System.out.print("\tName: ");
+          String name = scan.nextLine();
+
+          System.out.print("\tPhone Number: ");
+          String phoneNumber = scan.nextLine();
+
+          System.out.print("\tBirth Date: ");
+          String birthDate = scan.nextLine();
+
+          if (name.isBlank() || phoneNumber.isBlank() || birthDate.isBlank() || phoneNumber.length() < 5) {
+            System.out.println("\nThe input you provided is not valid. Registration failed.\n");
+          } else {
+            try {
+              manager.addContact(new Contact(name, phoneNumber, birthDate));
+            } catch (ParseException e) {
+              System.out.println(e.getMessage());
+            } finally {
+              System.out.println("\n\nUPDATED CONTACTS\n\n");
+            }
+          }
+
+        } else if (response.equals("b")) {
+          System.out.println("\nWho would you like to remove?");
+          manager.removeContact(scan.nextLine());
+          System.out.println("UPDATED CONTACTS");
+          break;
+        } else {
+          break;
+        }
+      } scan.close();
+     }
 
     /**
      * Name: loadContacts
@@ -44,4 +85,19 @@ public class Main {
      *        Hint: use scan.next to grab the next String separated by white space.
      */
 
+     public static void loadContacts(String fileName) throws FileNotFoundException {
+
+          FileInputStream fis = new FileInputStream(fileName);
+          Scanner scanFile = new Scanner(fis);
+
+          while(scanFile.hasNextLine()) {
+            try {
+              Contact contact = new Contact(scanFile.next(), scanFile.next(), scanFile.next());
+              manager.addContact(contact);
+            } catch (ParseException e) {
+          System.out.println(e.getMessage());
+            }
+        } 
+        scanFile.close();
+    }
 }
