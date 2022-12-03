@@ -43,7 +43,5 @@ public class ContactManager {
             temp += contacts.get(i).toString();
             temp += "\n\n";
         } return temp;
-        
     }
-    
 }

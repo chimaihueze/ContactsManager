@@ -85,7 +85,7 @@ public class Contact {
     
     // calculate age using birthDate
     public int toAge(String birthDate) throws ParseException {
-        SimpleDateFormat formatter = new SimpleDateFormat("MM-dd-yyyy");
+        SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
         formatter.setLenient(false);
         long diff = new Date().getTime() - formatter.parse(birthDate).getTime();
 
